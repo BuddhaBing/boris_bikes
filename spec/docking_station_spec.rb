@@ -10,6 +10,27 @@ describe DockingStation do
     expect(DockingStation).to receive(:new).with(10)
     DockingStation.new(10)
   end
+  it 'would accept dock' do
+    expect(subject.dock_bike(Bike.new)).to eq true
+  end
+  it 'correctly shows currently docked bikes' do
+    expect(subject.bikes).to eq []
+  end
+  it 'shows no bikes when we remove the bike in it' do
+    subject.dock_bike(Bike.new)
+    subject.release_bike
+    expect(subject.bikes).to eq []
+  end
+  it 'raises an error when told to release a bike when docking station' do
+    expect{subject.release_bike}.to raise_error("no bikes available")
+  end
+  it 'does not allow more bikes to be docked than the docking station\'s capacity' do
+    expect{ 20.times {subject.dock_bike(Bike.new)}}.not_to raise_error
+  end
+  it 'allows the user to report a broken bike' do
+    expect(subject).to respond_to (:dock_bike).with(1).arguments
+  end
+
   context "when one bike in rack," do
     before  (:each) do
       subject.dock_bike(Bike.new)
@@ -25,29 +46,6 @@ describe DockingStation do
       expect{ 20.times {subject.dock_bike(Bike.new)} }.to raise_error("docking station full")
     end
   end
-
-  context "when empty rack," do
-    it 'would accept dock' do
-      expect(subject.dock_bike(Bike.new)).to eq true
-    end
-
-    it 'correctly shows currently docked bikes' do
-      expect(subject.bikes).to eq []
-    end
-    it 'shows no bikes when we remove the bike in it' do
-      subject.dock_bike(Bike.new)
-      subject.release_bike
-      expect(subject.bikes).to eq []
-    end
-    it 'raises an error when told to release a bike when docking station' do
-      expect{subject.release_bike}.to raise_error("no bikes available")
-    end
-    it 'does not allow more bikes to be docked than the docking station\'s capacity' do
-      expect{ 20.times {subject.dock_bike(Bike.new)}}.not_to raise_error
-    end
-  end
+end
 
 # Write a manual feature test for the above feature. Consider using 20.times { docking_station.dock Bike.new }
-
-
-end

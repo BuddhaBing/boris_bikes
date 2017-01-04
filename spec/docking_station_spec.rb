@@ -3,6 +3,10 @@ require 'docking_station'
 describe DockingStation do
   it { is_expected.to respond_to :release_bike}
   it { is_expected.to respond_to :dock_bike }
+  it 'allows the user to specify a capacity' do
+    expect(DockingStation).to receive(:new).with(20)
+    DockingStation.new(20)
+  end
 
   context "one bike in rack," do
     before  (:each) do

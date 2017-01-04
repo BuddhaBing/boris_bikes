@@ -3,6 +3,7 @@ require 'docking_station'
 describe DockingStation do
   it { is_expected.to respond_to :release_bike}
   it { is_expected.to respond_to :dock_bike }
+  it { is_expected.to respond_to(:dock_bike).with(2).arguments }
   it 'default capacity is set' do
     expect(subject.capacity).to eq(DockingStation::DEFAULT_CAPACITY)
   end
@@ -26,9 +27,6 @@ describe DockingStation do
   end
   it 'does not allow more bikes to be docked than the docking station\'s capacity' do
     expect{ 20.times {subject.dock_bike(Bike.new)}}.not_to raise_error
-  end
-  it 'allows the user to report a broken bike' do
-    expect(subject).to respond_to (:dock_bike).with(1).arguments
   end
 
   context "when one bike in rack," do

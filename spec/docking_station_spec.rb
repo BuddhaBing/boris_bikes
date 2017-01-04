@@ -10,7 +10,6 @@ describe DockingStation do
     expect(DockingStation).to receive(:new).with(10)
     DockingStation.new(10)
   end
-
   context "when one bike in rack," do
     before  (:each) do
       subject.dock_bike(Bike.new)
@@ -20,7 +19,7 @@ describe DockingStation do
       expect(bike).to be_working
     end
     it 'shows currently docked bikes when asked' do
-      expect(subject.view_bikes.class).to eq Array
+      expect(subject.bikes.class).to eq Array
     end
     it 'does not allow more bikes to be docked than the docking station\'s capacity' do
       expect{ 20.times {subject.dock_bike(Bike.new)} }.to raise_error("docking station full")
@@ -33,12 +32,12 @@ describe DockingStation do
     end
 
     it 'correctly shows currently docked bikes' do
-      expect(subject.view_bikes).to eq []
+      expect(subject.bikes).to eq []
     end
     it 'shows no bikes when we remove the bike in it' do
       subject.dock_bike(Bike.new)
       subject.release_bike
-      expect(subject.view_bikes).to eq []
+      expect(subject.bikes).to eq []
     end
     it 'raises an error when told to release a bike when docking station' do
       expect{subject.release_bike}.to raise_error("no bikes available")

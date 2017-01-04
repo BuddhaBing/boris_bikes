@@ -21,9 +21,6 @@ class DockingStation
     true
   end
 
-  def view_bikes
-    @bikes
-  end
   private
   def full?
     @bikes.size >= @capacity

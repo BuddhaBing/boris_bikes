@@ -12,12 +12,11 @@ describe DockingStation do
     expect(bike).to be_working
   end
   it 'shows currently docked bikes when empty' do
+    subject.release_bike
     expect(subject.view_bikes).to eq nil
   end
-  it 'shows currently docked bikes when full' do
-    bike = Bike.new
-    subject.dock_bike(bike)
-    expect(subject.view_bikes).to eq bike
+  it 'shows currently docked bikes when asked' do
+    expect(subject.view_bikes.class).to eq Bike
   end
   it 'shows no bikes when we remove the bike in it' do
     bike = Bike.new

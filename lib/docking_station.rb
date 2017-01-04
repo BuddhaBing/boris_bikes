@@ -1,12 +1,19 @@
 require_relative 'bike'
 
 class DockingStation
-
   attr_reader :bike
+
+  def initialize
+    @bike = Bike.new
+  end
 
   def release_bike
     if @bike
-      Bike.new
+      bike = @bike
+      @bike = nil
+      return bike
+    else
+      @bike
     end
   end
 

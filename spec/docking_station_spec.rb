@@ -11,5 +11,8 @@ describe DockingStation do
     bike = subject.release_bike
     expect(bike).to be_working
   end
-
+  it 'shows currently docked bikes' do
+    bike = Bike.new
+    expect(subject.view_bikes).to eq false
+  end
 end

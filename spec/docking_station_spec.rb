@@ -12,7 +12,11 @@ describe DockingStation do
     bike = subject.release_bike
     expect(bike.working?).to eq false
   end
-  
+  it 'does not allow for broken bikes to be released' do
+    bike = subject.dock_bike(Bike.new,false)
+    expect{ bike.release_bike }.to raise_error
+  end
+
   it 'allows the user to specify a custom capacity' do
     expect(DockingStation).to receive(:new).with(10)
     DockingStation.new(10)

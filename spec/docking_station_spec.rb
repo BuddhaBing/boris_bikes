@@ -7,14 +7,18 @@ describe DockingStation do
   it 'default capacity is set' do
     expect(subject.capacity).to eq(DockingStation::DEFAULT_CAPACITY)
   end
+
   it 'records a bike being reported as broken' do
-    subject.dock_bike(Bike.new,false)
-    bike = subject.release_bike
+    bike = Bike.new
+    subject.dock_bike(bike,false)
     expect(bike.working?).to eq false
   end
+
   it 'does not allow for broken bikes to be released' do
-    bike = subject.dock_bike(Bike.new,false)
-    expect{ bike.release_bike }.to raise_error
+    subject.dock_bike(Bike.new,false)
+    subject.dock_bike(Bike.new,true)
+    subject.dock_bike(Bike.new,false)
+    expect(subject.release_bike.working?).to eq true
   end
 
   it 'allows the user to specify a custom capacity' do

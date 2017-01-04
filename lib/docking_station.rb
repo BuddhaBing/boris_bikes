@@ -12,7 +12,13 @@ class DockingStation
 
   def release_bike
     raise "no bikes available" if @bikes.size == 0
-    @bikes.pop
+    @bikes.each_with_index do |bike,index|
+      if bike.working?
+        @bikes.delete_at(index)
+        return bike
+      end
+    end
+    raise "no good bikes available"
   end
 
   def dock_bike(bike, working=true)

@@ -26,6 +26,6 @@ describe DockingStation do
   end
   it 'raises an error when told to release a bike when docking station is empty' do
     subject.release_bike
-    expect{subject.release_bike}.to raise_error
+    expect{subject.release_bike}.to raise_error("no bikes available")
   end
 end

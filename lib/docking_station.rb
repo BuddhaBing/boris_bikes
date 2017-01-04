@@ -14,7 +14,7 @@ class DockingStation
       @bike = nil
       return bike
     else
-      @bike
+      raise "no bikes available"
     end
   end
 

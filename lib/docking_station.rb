@@ -9,19 +9,18 @@ class DockingStation
   end
 
   def release_bike
-    raise "no bikes available" if not @bikes
+    raise "no bikes available" if @bikes.size == 0
     bike = @bikes.pop
-    @bikes = nil
     return bike
   end
 
   def dock_bike(bike)
-    #raise "docking station full" if !@bikes || @bikes.size == @capacity
+    raise "docking station full" if !@bikes || @bikes.size == @capacity
     @bikes << bike
     true
   end
 
   def view_bikes
-    @bike
+    @bikes
   end
 end

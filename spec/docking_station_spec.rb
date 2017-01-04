@@ -4,7 +4,7 @@ describe DockingStation do
   it { is_expected.to respond_to :release_bike}
   it { is_expected.to respond_to :dock_bike }
 
-  context "full bike rack" do
+  context "one bike in rack" do
     it 'releases working bikes' do
       bike = subject.release_bike
       expect(bike).to be_working
@@ -14,7 +14,7 @@ describe DockingStation do
     end
     it 'does not allow more bikes to be docked than the docking station\'s capacity' do
       bike = Bike.new
-      expect{ subject.dock_bike(bike) }.to raise_error("docking station full")
+      expect{ 20.times {subject.dock_bike(bike)} }.to raise_error("docking station full")
     end
   end
 
@@ -39,5 +39,13 @@ describe DockingStation do
     it 'raises an error when told to release a bike when docking station is empty' do
       expect{subject.release_bike}.to raise_error("no bikes available")
     end
+    it 'does not allow more bikes to be docked than the docking station\'s capacity' do
+      bike = Bike.new
+      expect( 20.times {subject.dock_bike(bike)} ).to eq true
+    end
   end
+
+# Write a manual feature test for the above feature. Consider using 20.times { docking_station.dock Bike.new }
+
+
 end

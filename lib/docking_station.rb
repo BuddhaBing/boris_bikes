@@ -5,7 +5,6 @@ class DockingStation
 
   def initialize
     @bikes = []
-    @bikes << Bike.new
     @capacity = 20
   end
 
@@ -17,8 +16,8 @@ class DockingStation
   end
 
   def dock_bike(bike)
-    raise "docking station full" if !@bikes || @bikes.size == @capacity
-    @bikes = bike
+    #raise "docking station full" if !@bikes || @bikes.size == @capacity
+    @bikes << bike
     true
   end
 

@@ -3,12 +3,15 @@ require 'docking_station'
 describe DockingStation do
   it { is_expected.to respond_to :release_bike}
   it { is_expected.to respond_to :dock_bike }
-  it 'allows the user to specify a capacity' do
-    expect(DockingStation).to receive(:new).with(20)
-    DockingStation.new(20)
+  it 'default capacity is set' do
+    expect(subject.capacity).to eq(DockingStation::DEFAULT_CAPACITY)
+  end
+  it 'allows the user to specify a custom capacity' do
+    expect(DockingStation).to receive(:new).with(10)
+    DockingStation.new(10)
   end
 
-  context "one bike in rack," do
+  context "when one bike in rack," do
     before  (:each) do
       subject.dock_bike(Bike.new)
     end
@@ -24,7 +27,7 @@ describe DockingStation do
     end
   end
 
-  context "empty rack," do
+  context "when empty rack," do
     it 'would accept dock' do
       expect(subject.dock_bike(Bike.new)).to eq true
     end

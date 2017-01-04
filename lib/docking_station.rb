@@ -8,6 +8,7 @@ class DockingStation
   end
 
   def release_bike
+    #return Bike.new
     if @bike
       bike = @bike
       @bike = nil

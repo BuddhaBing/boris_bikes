@@ -24,4 +24,8 @@ describe DockingStation do
     subject.release_bike
     expect(subject.view_bikes).to eq nil
   end
+  it 'raises an error when told to release a bike when docking station is empty' do
+    subject.release_bike
+    expect{subject.release_bike}.to raise_error
+  end
 end

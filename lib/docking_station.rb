@@ -9,9 +9,10 @@ class DockingStation
   end
 
   def dock_bike(bike)
-    #bike = bike
+    @bike = bike
     true
   end
   def view_bikes
+    @bike
   end
 end

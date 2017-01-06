@@ -19,10 +19,9 @@ class DockingStation
   end
 
   def dock_bike(bike)
+    raise "bike station full" if @bike
     @bike = bike
     true
   end
-  def view_bikes
-    @bike
-  end
+
 end

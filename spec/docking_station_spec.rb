@@ -26,7 +26,7 @@ describe DockingStation do
 
   it 'raises error if station full' do
     bike = subject.release_bike
-    DockingStation::DEFAULT_CAPACITY.times { subject.dock_bike Bike.new }
+    DockingStation::DEFAULT_CAPACITY.times { subject.dock_bike(Bike.new) }
     expect{subject.dock_bike(Bike.new)}.to raise_error("bike station full")
   end
 
@@ -40,4 +40,11 @@ describe DockingStation do
     station = DockingStation.new
     expect(station.capacity).to eq DockingStation::DEFAULT_CAPACITY
   end
+
+  it 'allows a member of the public to report a bike as broken upon return' do
+    users_bike = subject.release_bike
+    subject.dock_bike(users_bike, false)
+    expect(users_bike).not_to be_working
+  end
+
 end

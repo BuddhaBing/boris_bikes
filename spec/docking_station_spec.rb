@@ -47,4 +47,19 @@ describe DockingStation do
     expect(users_bike).not_to be_working
   end
 
+  it "prevents release of broken bike from station" do
+  released_bike = subject.release_bike
+  subject.dock_bike(released_bike,false)
+  expect{ subject.release_bike }.to raise_error "all bikes are broken"
+
+  end
+
+  it "prevents release of broken bike from station" do
+  released_bike = subject.release_bike
+  subject.dock_bike(released_bike,false)
+  subject.dock_bike(Bike.new,false)
+  expect{ subject.release_bike }.to raise_error "all bikes are broken"
+
+  end
+
 end

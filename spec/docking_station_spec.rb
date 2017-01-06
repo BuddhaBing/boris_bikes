@@ -26,7 +26,7 @@ describe DockingStation do
     DockingStation.new(10)
   end
   it 'would accept dock' do
-    expect(subject.dock_bike(Bike.new)).to eq true
+    expect(subject.dock_bike(double(:bike))).to eq true
   end
   it 'correctly shows currently docked bikes' do
     expect(subject.bikes).to eq []
@@ -58,6 +58,24 @@ describe DockingStation do
       expect{ 20.times {subject.dock_bike(Bike.new)} }.to raise_error("docking station full")
     end
   end
-end
+=begin
+  let(:bike) { double :bike }
+  it 'releases working bikes' do
+    allow(bike).to receive(:working?).and_return(true)
+    subject.release_bike
+    subject.dock_bike(bike)
+    released_bike = subject.release_bike
+    expect(released_bike).to be_working
+  end
 
-# Write a manual feature test for the above feature. Consider using 20.times { docking_station.dock Bike.new }
+  let(:bike) { double :bike }
+  it 'mark bike as broke' do
+    #allow(bike).to receive(:working?).and_return(false)
+    bike = subject.release_bike
+    subject.dock_bike(bike,false)
+    expect(bike.working_status).to eq false
+    #expect {subject.bikes.working_status.any? {|bike| !working_status}}.to eq false
+  end
+
+=end
+end
